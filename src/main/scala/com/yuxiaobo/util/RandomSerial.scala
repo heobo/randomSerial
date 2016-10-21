@@ -5,7 +5,7 @@ import scala.annotation.tailrec
 /**
   * Created by yu on 16-9-16.
   */
-case class RandomSerial(max: Int, deep: Int, seed: Long)  {
+case class RandomSerial(max: Int, deep: Int, seed: Long) {
 
   val length: Int = Integer.SIZE - Integer.numberOfLeadingZeros(max);
 
@@ -19,11 +19,11 @@ case class RandomSerial(max: Int, deep: Int, seed: Long)  {
   }
 
 
-  val randomSerials: Array[Option[PowerOfTwoHashSerial]] = {
-    0.until(length).map{i =>
+  val randomSerials: Array[Option[PowerOfTwoRandomSerial]] = {
+    0.until(length).map { i =>
       val power: Int = length - i - 1
       if ((max >> power & 1) == 0) None
-      else Some(new PowerOfTwoHashSerial(power, ((Util.md5Hex(("" + distance + power).getBytes).hashCode & 0x00000000ffffffffl) << (Integer.SIZE / 2) ^ distance) << (Integer.SIZE / 2) ^ distance))
+      else Some(PowerOfTwoRandomSerial(power, ((Util.md5Hex(("" + distance + power).getBytes).hashCode & 0x00000000ffffffffl) << (Integer.SIZE / 2) ^ distance) << (Integer.SIZE / 2) ^ distance))
     }.to[Array]
   }
 
@@ -55,7 +55,7 @@ case class RandomSerial(max: Int, deep: Int, seed: Long)  {
 }
 
 
-case class PowerOfTwoHashSerial(power: Int, seed: Long)  {
+private case class PowerOfTwoRandomSerial(power: Int, seed: Long) {
 
   val (not, order): (Array[Int], Array[Int]) = {
     logger.debug("new randomSerial: " + power + ", " + seed)
