@@ -2,6 +2,10 @@
 
 ### Usages
 #### Scala
+```sbt
+resolvers += "yuxiaobo" at "http://code.yuxiaobo.com/repository"
+```
+
 ```scala
     val max = 1000
     val rs = RandomSerial(max, 10, 80)
@@ -10,6 +14,15 @@
 ```
 
 #### Java 8+
+```xml
+    <repositories>
+        <repository>
+            <id>yuxiaobo</id>
+            <url>http://code.yuxiaobo.com/repository</url>
+        </repository>
+    </repositories>
+```
+
 ```java
   int max = 1000; // max value 
   int deep = 10; // hash times
